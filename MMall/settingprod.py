@@ -1,3 +1,4 @@
+__author__ = 'rusdi'
 """
 Django settings for MMall project.
 
@@ -23,7 +24,7 @@ PROJECT_DIR = os.path.abspath(os.path.dirname(__name__))
 SECRET_KEY = 'a3$6!5b10x8yw*dx^nlz^hl7p)11nt)rdqxnm!d@8pu(ooxi6-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -90,7 +91,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Jakarta'
 
 USE_I18N = True
 

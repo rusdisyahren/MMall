@@ -1,0 +1,34 @@
+{% load bootstrap3 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<table class="table table-bordered">
+    <tr>
+        <td>ID</td>
+        <td>Title</td>
+        <td>Price</td>
+        <td>Image</td>
+    </tr>
+     {% for row in product_list %}
+    <tr>
+
+            <td>{{ row.id }}</td>
+            <td><a href="{% url 'detail' row.id %}"> {{ row.title }}</a></td>
+            <td>{{ row.price }}</td>
+            <td><img style="height: 50px;width: 50px;" src="/{{ row.picture }}" height="420"></td>
+
+        <td></td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+{% load bootstrap3 %}
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<body class="container">
+<form action="{% url 'signin' %}" method="post">
+    {% csrf_token %}
+    {% bootstrap_form login_form %}
+   {% bootstrap_button "Login" button_class="primary btn-primary" %}
+</form>
+</body>
+</html>

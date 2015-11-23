@@ -2,13 +2,11 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.template.defaultfilters import slugify
 
-
 STATUS_CHOICES = (
     ('PD', 'Pending'),
     ('PC', 'Processing'),
     ('SP', 'Shiped'),
 )
-
 
 
 class Brand(models.Model):
@@ -29,7 +27,6 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-
     def save(self, *args, **kwargs):
         if not self.id:
             # Newly created object, so set slug
@@ -46,12 +43,12 @@ class Category(models.Model):
     parent = models.ForeignKey("self", related_name="children", blank=True, null=True)
 
     def __str__(self):
+
         return self.name
 
 
-
 class Cart(models.Model):
-    customer = models.ForeignKey(User, null=True ,blank=True)
+    customer = models.ForeignKey(User, null=True, blank=True)
     status = models.CharField(choices=STATUS_CHOICES, max_length=20, null=True)
     created_date = models.DateTimeField(auto_now_add=True, null=True)
 
@@ -67,14 +64,8 @@ class CartItem(models.Model):
     total_price = models.DecimalField(default=0, decimal_places=2, max_digits=10, null=True)
 
     def save(self):
-        if not self.quantity  :
+        if not self.quantity:
             self.total_price = self.price_perunit * self.quantity
-
 
     def __str__(self):
         return "%s %s %s" % (self.product.title, self.quantity, self.price_perunit)
-
-
-
-
-
