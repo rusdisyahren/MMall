@@ -1,0 +1,58 @@
+{#{% load bootstrap3 %}#}
+{#{% bootstrap_css %}#}
+{#{% bootstrap_javascript %}#}
+
+{% load humanize %}
+{% load staticfiles %}
+{% load pipeline %}
+{% javascript 'js' %}
+{% stylesheet 'css' %}
+
+{#<script src="{% static 'jquery/dist/jquery.js' %}"></script>#}
+
+<div class="container" style="margin-top: 10px;">
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table">
+                <!-- On rows -->
+                <tr>
+                    <th class="active">NO</th>
+                    <th class="success">Product</th>
+                    <th class="warning">Price</th>
+                    <th class="danger">Qty</th>
+                    <th class="info">Tot.Price</th>
+                </tr>
+                <!-- On cells (`td` or `th`) -->
+                {% for k,v in cartlist.items %}
+                    <tr>
+                        <td class="active">{{ k }}</td>
+                        <td class="success">{{ v.title }}</td>
+                        <td class="warning">Rp. {{ v.price|intcomma }}</td>
+                        <td class="danger">{{ v.qty }}</td>
+                        <td class="info">Rp. {{ v.totalprice|intcomma }}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td class="active"></td>
+                    <td class="success"></td>
+                    <td class="warning"></td>
+                    <td class="danger">{{ total_quantity }}</td>
+                    <td class="info">Rp. {{ total_price|intcomma }}</td>
+                </tr>
+            </table>
+        </div>
+        <button onclick="document.location.href='/store/cart'" type="button" class="btn btn-default btn-lg">
+            <span
+                    class="glyphicon glyphicon-home" aria-hidden="true"></span><span id="sizeofcart"> Back to Shoping</span>
+        </button>
+        <button onclick="document.location.href='{% url 'checkout' %}'" type="button" class="btn btn-primary btn-lg">
+            <span
+                    class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span><span
+                id="sizeofcart"> Checkout</span>
+        </button>
+        <button onclick="document.location.href='{% url 'clearcart' %}'" type="button" class="btn btn-warning btn-lg">
+            <span
+                    class="glyphicon glyphicon-remove" aria-hidden="true"></span><span id="sizeofcart"> Clear Cart</span>
+        </button>
+    </div>
+</div>

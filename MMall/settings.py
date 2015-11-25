@@ -37,9 +37,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'ecommerce',
     'bootstrap3',
+    'pipeline',
 )
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -102,9 +105,86 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# STATIC_URL = '/static/'
+#
+# # PIPELINE_COMPILERS = (
+# #     'pipeline.compilers.es6.ES6Compiler',
+# # )
+# PIPELINE_CSS = {
+#     'css': {
+#         'source_filenames': (
+#             'admin/css/*.css',
+#             'bower_components/bootstrap/dist/css/bootstrap.css'
+#         ),
+#         'output_filename': 'css/allcss.css',
+#
+#     },
+# }
+#
+# PIPELINE_JS = {
+#     'js': {
+#         'source_filenames': (
+#             'admin/js/*.js',
+#         ),
+#         'output_filename': 'js/alljs.js',
+#     },
+# }
 
+
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_DIR, 'static'),
+    os.path.join(BASE_DIR, 'bower_components'),
 )
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+LOGIN_URL = '/store/signin'
+
+#
+# Django Pipeline settings
+#
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+
+PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.uglifyjs.UglifyJSCompressor'
+PIPELINE_COMPILERS = (
+    'pipeline.compilers.es6.ES6Compiler',
+)
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
+)
+
+# PIPELINE_JS = {
+#     'app': {
+#         'source_filenames': (
+#           'js/app.es6',
+#             'js/component1.es6'
+#         ),
+#         'output_filename': 'js/app.js',
+#     },
+# }
+
+PIPELINE_CSS = {
+    'css': {
+        'source_filenames': (
+            'bootstrap/dist/css/bootstrap.css',
+        ),
+        'output_filename': 'bootstrap/dist/css/allcss.css',
+    },
+}
+
+PIPELINE_JS = {
+    'js': {
+        'source_filenames': (
+            'bootstrap/dist/js/bootstrap.js',
+            'jquery/dist/jquery.js'
+        ),
+        'output_filename': 'bootstrap/dist/js/alljs.js',
+    },
+}

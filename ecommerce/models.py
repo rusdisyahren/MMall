@@ -53,7 +53,7 @@ class Cart(models.Model):
     created_date = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return "%s %s" % (self.customer.username, self.status)
+        return "%s %s" % (self.customer, self.status)
 
 
 class CartItem(models.Model):
@@ -62,10 +62,6 @@ class CartItem(models.Model):
     quantity = models.PositiveIntegerField(default=0)
     price_perunit = models.DecimalField(default=0, decimal_places=2, max_digits=10)
     total_price = models.DecimalField(default=0, decimal_places=2, max_digits=10, null=True)
-
-    def save(self):
-        if not self.quantity:
-            self.total_price = self.price_perunit * self.quantity
 
     def __str__(self):
         return "%s %s %s" % (self.product.title, self.quantity, self.price_perunit)
