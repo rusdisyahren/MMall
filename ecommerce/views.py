@@ -2,8 +2,7 @@ import json
 from django.shortcuts import render
 from ecommerce.forms import LoginForm, ProductForm
 from django.http import HttpResponseRedirect, HttpResponse
-from models import models, Cart, CartItem, Category, Product, User, STATUS_CHOICES
-
+from models import models, Cart, CartItem, Product, User
 
 # Create your views here.
 def index(request):
@@ -34,6 +33,7 @@ def signin(request):
     if request.method == 'POST':
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
+            request.session['login'] = request.POST
             return HttpResponseRedirect('/store')
     else:
         login_form = LoginForm()
@@ -95,7 +95,7 @@ def cartItem(request):
 
 
 def clearCart(request):
-    if request.session.get('has_session'):
+    if request.session.get('cart'):
         del request.session['cart']
     context = {}
     return render(request, 'ecommerce/cartitem.html', context)
